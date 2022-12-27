@@ -23,8 +23,16 @@ cd "$(dirname "$0")"
 
 METRICS_HOST=$1
 HOST_COUNT=$2
+CREATE_MASTER=$3
+MIN_HOST_INDEX=$4
+if [ "X${CREATE_MASTER}" == "X" ]; then
+ CREATE_MASTER="false"
+fi
+if [ "X${MIN_HOST_INDEX}" == "X" ]; then
+ MIN_HOST_INDEX="0"
+fi
 
 echo $$ > sim_pid
 cat sim_pid
 #HOMEDIR
-exec  java -jar ../lib/ambari-metrics/ambari-metrics-timelineservice-simulator*.jar  -h `hostname -f` -n ${HOST_COUNT} -m ${METRICS_HOST} -c 15000 -s 60000
+exec  java -jar ../lib/ambari-metrics/ambari-metrics-timelineservice-simulator*.jar  -h `hostname -f` -n ${HOST_COUNT} -m ${METRICS_HOST} -M ${CREATE_MASTER} -i ${MIN_HOST_INDEX} -c 15000 -s 60000

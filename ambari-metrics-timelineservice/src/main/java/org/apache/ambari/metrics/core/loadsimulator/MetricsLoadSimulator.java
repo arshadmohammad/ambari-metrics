@@ -77,6 +77,7 @@ public class MetricsLoadSimulator {
     mapProps.put("metricsHostName", "localhost");
     mapProps.put("collectInterval", "10000");
     mapProps.put("sendInterval", "60000");
+    mapProps.put("minHostIndex", "0");
 
     if (args.length == 0) {
       printUsage();
@@ -98,6 +99,8 @@ public class MetricsLoadSimulator {
           mapProps.put("sendInterval", args[i + 1]);
         } else if (arg.equals("-M")) {
           mapProps.put("master", args[i + 1]);
+        } else if (arg.equals("-i")) {
+          mapProps.put("minHostIndex", args[i + 1]);
         } else if (arg.equals("-d")) {
           // a dummy switch - it says that we agree with defaults
         } else {
@@ -128,7 +131,7 @@ public class MetricsLoadSimulator {
     System.err.println("[-h hostName] [-n numberOfHosts] "
       + "[-t trafficMode {burst, staggered}] [-m metricsHostName] "
       + "[-c collectIntervalMillis {10 sec}] [-s sendIntervalMillis {60 sec}]"
-      + "[-M simulateMaster {true, false}] ");
+      + "[-M simulateMaster {true, false}] [-i minHostIndex {0}]");
     System.err.println();
     System.err.println("When you select a master, then one simulated host will play");
     System.err.println("a role of a master, and the rest will be slaves. Otherwise");
